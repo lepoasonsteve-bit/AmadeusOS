@@ -1,0 +1,26 @@
+name: Build AmadeusOS ISO
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Make script executable
+      run: chmod +x build.sh
+
+    - name: Build AmadeusOS
+      run: sudo ./build.sh
+
+    - name: Upload ISO Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: AmadeusOS-ISO
+        path: AmadeusOS.iso
