@@ -37,12 +37,16 @@ mount -t sysfs /sys ${WORK_DIR}/chroot/sys
 # Chroot script to install Desktop and Tools
 cat <<EOF > ${WORK_DIR}/chroot/setup_chroot.sh
 #!/bin/bash
+set -e
 export DEBIAN_FRONTEND=noninteractive
 
 echo "AmadeusOS" > /etc/hostname
 echo "127.0.0.1 localhost" > /etc/hosts
 echo "127.0.1.1 AmadeusOS" >> /etc/hosts
 
+echo "deb http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse" > /etc/apt/sources.list
+echo "deb http://archive.ubuntu.com/ubuntu/ jammy-updates main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse" >> /etc/apt/sources.list
 apt-get update
 
 # Install Linux kernel and live boot utilities
